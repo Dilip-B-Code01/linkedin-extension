@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
 import "./Popup.css";
 import SettingIcon from "./assests/settingIcon.svg";
 
@@ -27,35 +29,28 @@ function App() {
   return (
     <div className="popup-container">
       <div className="headerContainer">
-        <h1 className="popup-title">
-          LinkedIn Auto Connect
-        </h1>
-        <img src={SettingIcon}></img>
+        <h1 className="popup-title">LinkedIn Auto Connect</h1>
+        <img src={SettingIcon} alt="Settings Icon" />
       </div>
 
-      <p className="count-text">
-        <p className="text-sm">
-          Invitations Sent
-        </p>
-        <div className="count-container">
-          <h3 className="count">{count}</h3>
-        </div>
-      </p>
+      <div className="progress-container">
+        <p className="text-sm">Invitations Sent</p>
+        <CircularProgressbar
+          value={count}
+          text={`${count}`}
+          styles={buildStyles({
+            pathColor: `#40a9ff`,
+            textColor: "#333",
+          })}
+        />
+      </div>
 
       {!isSending ? (
-        <button
-          className="btn"
-          onClick={handleStart}
-          disabled={isSending}
-        >
+        <button className="btn" onClick={handleStart} disabled={isSending}>
           {isSending ? "Sending..." : "Start Sending"}
         </button>
       ) : (
-        <button
-          className="btn"
-          onClick={handleStop}
-          disabled={!isSending}
-        >
+        <button className="btn" onClick={handleStop} disabled={!isSending}>
           Stop Sending
         </button>
       )}
